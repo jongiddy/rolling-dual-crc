@@ -217,6 +217,16 @@ impl DualCrc {
         }
     }
 
+    /// Continues computation of 32-bit `CRC-32C` and 64-bit `CRC-64/XZ` checksums.
+    ///
+    /// For example, this can be continued from the CRC's obtained from a `RollingDualCRC`.
+    pub fn from_existing(crcs: (u32, u64)) -> Self {
+        Self {
+            inverted_crc32: !crcs.0,
+            inverted_crc64: !crcs.1,
+        }
+    }
+
     /// Continues checksums computation with given data.
     ///
     /// See [`DualCrc`] for an example.
